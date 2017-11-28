@@ -1,0 +1,29 @@
+{
+  "name": "hb-week4-js-dom",
+  "version": "1.0.0",
+  "description": "Gallery and Cards Collection",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run lint && node-sass src/sass/main.scss public/css/main.css --output-style compressed",
+    "lint": "stylelint 'src/sass/**/*.scss' --config .stylelintrc --syntax scss",
+    "start": "npm run build -- -w --source-map true",
+    "precommit": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ouraborus/hb-week4-js-dom.git"
+  },
+  "author": "Esteban Cardona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ouraborus/hb-week4-js-dom/issues"
+  },
+  "homepage": "https://github.com/Ouraborus/hb-week4-js-dom#readme",
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "node-sass": "^4.7.2",
+    "stylelint": "^8.2.0",
+    "stylelint-config-recommended-scss": "^2.0.0",
+    "stylelint-scss": "^2.1.0"
+  }
+}
