@@ -1,16 +1,31 @@
-.arrow{
-	width: 20px;
-	height: 20px;
-	border-top: 50px solid transparent;
-	border-bottom: 50px solid transparent;
-	position: relative;
-	top: 50%;
+@mixin arrows($size){
+	border-top: #{$size}px solid transparent;
+	border-bottom: #{$size}px solid transparent;
 	&__left{
-		left: 0;
-		border-right: 100px solid red;
+		border-right: #{$size}px solid $color2;
 	}
 	&__right{
-		right: 0;
-		border-left: 100px solid red;
+		border-left: #{$size}px solid $color2;
+	}
+}
+.arrow{
+	width: 0;
+	height: 0;
+	position: absolute;
+	margin-top: 50vh;
+	border-radius: 100%;
+	@include arrows(25);
+	&__left{
+		left: 10px;
+	}
+	&__right{
+		right: 10px;
+	}
+
+	@include medium{
+		@include arrows(40);		
+	}
+	@include large{
+		@include arrows(50);		
 	}
 }
