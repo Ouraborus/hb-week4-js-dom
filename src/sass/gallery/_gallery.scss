@@ -1,5 +1,18 @@
+body{
+	background: $color4; 	
+}
 .gallery{
 		position: relative;
     width: 100%;
 		height: 100%;
+
+		&__image{
+			position: absolute;
+			width: 100%;
+			height: 100vh;
+			object-fit: scale-down;
+		}
+}
+.hidden{
+	opacity: 0;
 }
