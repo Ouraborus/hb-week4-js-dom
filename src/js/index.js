@@ -1,4 +1,12 @@
-window.onload = init;
+export class Gallery {
+    constructor(element,img){
+        this.node = document.querySelector(element);
+
+        
+    }
+}
+
+
 
 function init() {
     createArrows();
@@ -67,6 +75,3 @@ function reveal(pos, next) {
         img[pos++].classList.remove('hidden');
     }
 }
-
-
-
