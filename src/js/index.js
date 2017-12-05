@@ -1,5 +1,5 @@
-import { Gallery } from 'gallery.js'
-import data from 'galleryData.js'
+import { Gallery } from './gallery.js'
+import data from './galleryData.js'
 
 /* eslint-disable */
 new Gallery('.gallery', data)
