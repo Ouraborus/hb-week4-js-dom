@@ -20,13 +20,14 @@ export class Gallery {
                 <div class="arrow arrow__right">
                 </div>`),
       gallery: (
-                `<img src="{src}" alt="" class="gallery__image hidden" data-index="{index}">`
+                `<img src="{src}" alt="" class="gallery__image hidden">`
             ),
       dots: (
         `<div class="dots">
-        <span class="dot"></span>
-        <span class="dot"></span>
         </div>`
+      ),
+      dot: (
+        `<span class="dot"></span>`
     )
     }
   }
@@ -70,7 +71,12 @@ export class Gallery {
   }
 
   setDots () {
-    this.elements.dots = this.node.querySelectorAll('.dots')
+    const string = Gallery.galleryStructure.dot
+    this.elements.dots = this.node.querySelector('.dots')
+    const dots = [...this.elements.gallery].map(() => {
+      return string
+    }).join('')
+    this.elements.dots.innerHTML = dots
   }
 }
 

@@ -32,9 +32,20 @@
 }
 
 .dot{
-	height: 25px;
-	width: 25px;
-	border-radius: 50%;
-	border: 2px white;
-	fill: transparent;
+	width: 100%;
+	bottom: 9px;
+	height: 11px;
+	display: block;
+	position: absolute;
+	text-align: center;
+}
+
+.dots{
+	width: 11px;
+	height: 11px;
+	margin: 0 4px;
+	position: relative;
+	border-radius: 100%;
+	display: inline-block;
+	background-color: rgba(0, 0, 0, 0.6);
 }

@@ -7,7 +7,7 @@
     "serve": "http-server -c-1",
     "build": "npm-run-all clean lint:** --parallel build:css copy:**",
     "build:css": "node-sass src/sass/main.scss public/style.css --output-style compressed",
-    "cp:html": "copyfiles -u 1 src/**/*.html public",    
+    "cp:html": "copyfiles -u 1 src/**/*.html public",
     "cp:js": "copyfiles -u 1 src/**/*.js public",
     "copy:html": "copy './src/**/*.html' public",
     "copy:js": "copy './src/**/*.js' public",
