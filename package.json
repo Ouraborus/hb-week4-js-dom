@@ -7,6 +7,8 @@
     "serve": "http-server -c-1",
     "build": "npm-run-all clean lint:** --parallel build:css copy:**",
     "build:css": "node-sass src/sass/main.scss public/style.css --output-style compressed",
+    "cp:html": "copyfiles -u 1 src/**/*.html public",    
+    "cp:js": "copyfiles -u 1 src/**/*.js public",
     "copy:html": "copy './src/**/*.html' public",
     "copy:js": "copy './src/**/*.js' public",
     "clean": "rm -rf public/",
@@ -18,7 +20,8 @@
     "watch:js": "onchange 'src/**/*.js' -- npm-run-all lint:js copy:js",
     "precommit": "npm run lint",
     "start:build": "npm-run-all build serve",
-    "start": "npm-run-all copy:** build:css --parallel watch:** serve"
+    "start": "npm-run-all copy:** build:css --parallel watch:** serve",
+    "start:windows": "npm-run-all cp:** build:css --parallel watch:** serve"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,7 @@
   "homepage": "https://github.com/Ouraborus/hb-week4-js-dom#readme",
   "devDependencies": {
     "copy": "^0.3.1",
+    "copyfiles": "^1.2.0",
     "http-server": "^0.10.0",
     "husky": "^0.14.3",
     "node-sass": "^4.7.2",
