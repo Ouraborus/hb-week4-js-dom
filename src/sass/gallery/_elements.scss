@@ -1,26 +1,23 @@
 @mixin arrows($size){
-	border-top: #{$size}px solid transparent;
-	border-bottom: #{$size}px solid transparent;
-	&__left{
-		border-right: #{$size}px solid $color2;
-	}
-	&__right{
-		border-left: #{$size}px solid $color2;
-	}
+	width: #{$size}px;
+	height: #{$size}px;
+	border-top: .4rem solid $color2;
+	border-right: .4rem solid $color2;
 }
 .arrow{
-	z-index: 5;
-	width: 0;
-	height: 0;
 	position: absolute;
-	margin-top: 50vh;
-	border-radius: 100%;
+	top: 50%;
+	background-color: transparent;
+	transition: 200ms ease;
+	z-index: 5;
 	@include arrows(25);
 	&__left{
-		left: 15px;
+		left: 5%;
+		transform: translate3d(0,-50%,0) rotate(-135deg);
 	}
 	&__right{
-		right: 15px;
+		right: 5%;
+		transform: translate3d(0,-50%,0) rotate(45deg);
 	}
 
 	@include medium{
@@ -32,20 +29,20 @@
 }
 
 .dot{
-	width: 100%;
-	bottom: 9px;
-	height: 11px;
-	display: block;
-	position: absolute;
-	text-align: center;
-}
-
-.dots{
-	width: 11px;
-	height: 11px;
-	margin: 0 4px;
-	position: relative;
-	border-radius: 100%;
-	display: inline-block;
-	background-color: rgba(0, 0, 0, 0.6);
+    margin: 0 16px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+		z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		
+		&__element{
+			width: 16px;
+			height: 16px;
+			margin: 5px;
+			border-radius: 50%;
+			background-color: $color2;
+		}
 }
