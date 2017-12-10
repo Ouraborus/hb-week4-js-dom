@@ -9,15 +9,19 @@
 	top: 50%;
 	background-color: transparent;
 	transition: 200ms ease;
-	z-index: 5;
+	z-index: 1;
+	border: none;
+	&:hover,&:focus{
+		border-color: $color1;
+	}
 	@include arrows(25);
 	&__left{
 		left: 5%;
-		transform: translate3d(0,-50%,0) rotate(-135deg);
+		transform: rotate(-135deg);
 	}
 	&__right{
 		right: 5%;
-		transform: translate3d(0,-50%,0) rotate(45deg);
+		transform: rotate(45deg);
 	}
 
 	@include medium{
@@ -29,20 +33,25 @@
 }
 
 .dot{
-    margin: 0 16px;
-    position: absolute;
+		position: absolute;
+		z-index: 1;
     bottom: 0;
     width: 100%;
-		z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 		
 		&__element{
-			width: 16px;
-			height: 16px;
+			width: 24px;
+			height: 24px;
 			margin: 5px;
 			border-radius: 50%;
 			background-color: $color2;
+			&:hover,&:focus{
+				background-color: $color1;
+			}
+			&--selected{
+				background-color: $color3;
+			}
 		}
 }

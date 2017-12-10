@@ -1,6 +1,5 @@
 export class Gallery {
   constructor (element, img) {
-        // Set Element and initial position
     this.node = document.querySelector(element)
     this.index = 0
     this.elements = {}
@@ -9,7 +8,6 @@ export class Gallery {
     this.fillGallery(img)
     this.setArrows()
     this.setDots()
-    // this.setBounds();
   }
 
   static get galleryStructure () {
@@ -43,17 +41,28 @@ export class Gallery {
 
     this.elements.leftArrow.addEventListener('click', this.prev.bind(this))
     this.elements.rightArrow.addEventListener('click', this.next.bind(this))
+    this.node.addEventListener('keydown', this.keyHandler.bind(this))
   }
-
   next () {
     if (this.index < this.elements.gallery.length - 1) {
-      this.reveal(this.index, ++this.index)
+      const index = this.index  
+      const next = ++this.index
+      this.reveal(index, next)
+      this.selectedItem(index,next)
     }
   }
   prev () {
     if (this.index > 0) {
-      this.reveal(this.index, --this.index)
+      const index = this.index      
+      const prev = --this.index
+      this.reveal(index, prev)
+      this.selectedItem(index,prev)
+    
     }
+  }
+  keyHandler(e){
+    const keyCode = e.keyCode
+    (keyCode === 37 || keyCode === 39 ) ? (keyCode === 37) ? this.prev(): this.next() : false
   }
 
   fillGallery (data) {
@@ -63,22 +72,37 @@ export class Gallery {
     this.elements.gallery = this.node.querySelectorAll('.gallery__image')
     this.reveal(0, 0)
   }
+  setDots () {
+    const string = Gallery.galleryStructure.dot
+    const dots = [...this.elements.gallery].map(() => {
+      return string
+    }).join('')
+    this.node.querySelector('.dot').innerHTML = dots
+    this.elements.dots = this.node.querySelectorAll('.dot__element')
 
+    this.elements.dots.forEach(element => {
+      element.addEventListener('click', this.dotClick.bind(this))
+    });
+    this.elements.dots[0].classList.add('dot__element--selected')
+
+  }
+  dotClick(){
+    const reveal = [...this.elements.dots].indexOf(event.target)
+    this.reveal(this.index, reveal)
+    this.selectedItem(this.index,reveal)
+    this.index = reveal
+    
+  }
   reveal (hide, reveal) {
     // console.log(`reveal = ${hide}, ${reveal}`)
     this.elements.gallery[hide].classList.add('hidden')
     this.elements.gallery[reveal].classList.remove('hidden')
   }
-
-  setDots () {
-    const string = Gallery.galleryStructure.dot
-    this.elements.dots = this.node.querySelector('.dot')
-    const dots = [...this.elements.gallery].map(() => {
-      return string
-    }).join('')
-    this.elements.dots.innerHTML = dots
+  selectedItem(index, reveal){
+    this.elements.dots[index].classList.remove('dot__element--selected');
+    this.elements.dots[reveal].classList.add('dot__element--selected');
+    this.elements.dots[reveal].focus()
+    event.preventDefault
   }
-}
 
-// Falta agregar dots con el indice correspondiente y ubicar de acuerdo a su imagen, para que al momento de hacer el
-// click, se haga la transicion.
+}
