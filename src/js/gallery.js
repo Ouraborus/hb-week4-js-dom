@@ -6,8 +6,9 @@ export class Gallery {
 
     this.setGalleryStructure()
     this.fillGallery(img)
-    this.setArrows()
     this.setDots()
+    this.setArrows()
+    this.reveal(0, 0)
   }
 
   static get galleryStructure () {
@@ -45,24 +46,30 @@ export class Gallery {
   }
   next () {
     if (this.index < this.elements.gallery.length - 1) {
-      const index = this.index  
+      const index = this.index
       const next = ++this.index
       this.reveal(index, next)
-      this.selectedItem(index,next)
+      this.selectedItem(index, next)
     }
   }
   prev () {
     if (this.index > 0) {
-      const index = this.index      
+      const index = this.index
       const prev = --this.index
       this.reveal(index, prev)
-      this.selectedItem(index,prev)
-    
+      this.selectedItem(index, prev)
     }
   }
-  keyHandler(e){
-    const keyCode = e.keyCode
-    (keyCode === 37 || keyCode === 39 ) ? (keyCode === 37) ? this.prev(): this.next() : false
+  keyHandler (e) {
+    const key = e.key
+    if (key === 'ArrowLeft' || key === 'ArrowRight'){
+      if (key === 'ArrowLeft'){
+        this.prev()
+      }
+      else {
+        this.next()
+      }
+    }
   }
 
   fillGallery (data) {
@@ -70,7 +77,6 @@ export class Gallery {
       this.node.innerHTML += Gallery.galleryStructure.gallery.replace('{src}', element.url)
     })
     this.elements.gallery = this.node.querySelectorAll('.gallery__image')
-    this.reveal(0, 0)
   }
   setDots () {
     const string = Gallery.galleryStructure.dot
@@ -82,27 +88,34 @@ export class Gallery {
 
     this.elements.dots.forEach(element => {
       element.addEventListener('click', this.dotClick.bind(this))
-    });
+    })
     this.elements.dots[0].classList.add('dot__element--selected')
-
   }
-  dotClick(){
+  dotClick () {
     const reveal = [...this.elements.dots].indexOf(event.target)
     this.reveal(this.index, reveal)
-    this.selectedItem(this.index,reveal)
+    this.selectedItem(this.index, reveal)
     this.index = reveal
-    
   }
   reveal (hide, reveal) {
-    // console.log(`reveal = ${hide}, ${reveal}`)
     this.elements.gallery[hide].classList.add('hidden')
     this.elements.gallery[reveal].classList.remove('hidden')
+    this.arrowVisibility(reveal)
   }
-  selectedItem(index, reveal){
-    this.elements.dots[index].classList.remove('dot__element--selected');
-    this.elements.dots[reveal].classList.add('dot__element--selected');
+  selectedItem (index, reveal) {
+    this.elements.dots[index].classList.remove('dot__element--selected')
+    this.elements.dots[reveal].classList.add('dot__element--selected')
     this.elements.dots[reveal].focus()
     event.preventDefault
   }
-
+  arrowVisibility(index){
+    this.elements.rightArrow.classList.remove('hidden')
+    this.elements.leftArrow.classList.remove('hidden')    
+    if(index === 0){
+      this.elements.leftArrow.classList.toggle('hidden')
+    }
+    if(index === this.elements.dots.length-1){
+      this.elements.rightArrow.classList.toggle('hidden')
+    }
+  }
 }
