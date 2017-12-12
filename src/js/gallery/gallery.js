@@ -62,11 +62,10 @@ export class Gallery {
   }
   keyHandler (e) {
     const key = e.key
-    if (key === 'ArrowLeft' || key === 'ArrowRight'){
-      if (key === 'ArrowLeft'){
+    if (key === 'ArrowLeft' || key === 'ArrowRight') {
+      if (key === 'ArrowLeft') {
         this.prev()
-      }
-      else {
+      } else {
         this.next()
       }
     }
@@ -92,7 +91,9 @@ export class Gallery {
     this.elements.dots[0].classList.add('dot__element--selected')
   }
   dotClick () {
+    /* eslint-disable */
     const reveal = [...this.elements.dots].indexOf(event.target)
+    /* eslint-enable */
     this.reveal(this.index, reveal)
     this.selectedItem(this.index, reveal)
     this.index = reveal
@@ -106,15 +107,14 @@ export class Gallery {
     this.elements.dots[index].classList.remove('dot__element--selected')
     this.elements.dots[reveal].classList.add('dot__element--selected')
     this.elements.dots[reveal].focus()
-    event.preventDefault
   }
-  arrowVisibility(index){
+  arrowVisibility (index) {
     this.elements.rightArrow.classList.remove('hidden')
-    this.elements.leftArrow.classList.remove('hidden')    
-    if(index === 0){
+    this.elements.leftArrow.classList.remove('hidden')
+    if (index === 0) {
       this.elements.leftArrow.classList.toggle('hidden')
     }
-    if(index === this.elements.dots.length-1){
+    if (index === this.elements.dots.length - 1) {
       this.elements.rightArrow.classList.toggle('hidden')
     }
   }
