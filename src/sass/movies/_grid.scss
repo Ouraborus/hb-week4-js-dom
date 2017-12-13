@@ -1,0 +1,8 @@
+.grid{
+	height: 100vh;
+}
+.movies-grid{
+	display: grid;
+	grid-column: repeat(3, 1fr);
+	grid-auto-rows: 
+}
