@@ -1,8 +1,15 @@
 .grid{
 	height: 100vh;
+	background-color: $color3;
 }
 .movies-grid{
 	display: grid;
-	grid-column: repeat(3, 1fr);
-	grid-auto-rows: 
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr 1fr;
+	&__element{
+		object-fit: fill;
+	}
+	li{
+		display: subgrid;
+	}
 }
