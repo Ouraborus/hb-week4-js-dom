@@ -1,10 +1,9 @@
 export class MoviesFilter {
-  constructor (section, categories) {
+  constructor (section, data) {
     this.node = document.querySelector(section)
     this.selectedCategory = 'All'
     this.elements = {}
-
-    this.setFilter(categories)
+    this.setFilter(this.filterCategories(data))
   }
 
   static get filterStructure () {
@@ -14,10 +13,19 @@ export class MoviesFilter {
     )}
   }
 
+  filterCategories (data) {
+    const categories = []
+    data.map(element => {
+      if (!categories.includes(element.category)) {
+        categories.push(element.category)
+      }
+    })
+    return categories
+  }
   setFilter (data) {
     let filterData = ''
     data.forEach(element => {
-      filterData += MoviesFilter.filterStructure.shell.replace('{category}', element.category).replace('{category}', element.category)
+      filterData += MoviesFilter.filterStructure.shell.replace('{category}', element).replace('{category}', element)
     })
     this.node.innerHTML += filterData
     this.elements.categories = this.node.querySelectorAll('.movies-filter__element')
