@@ -29,4 +29,15 @@ export class MoviesGrid {
     this.elements.movies = this.node.querySelectorAll('.movies-grid__container')
     this.elements.movies.tabIndex = 0
   }
+  updateGrid (data) {
+    console.log(data)
+    Array.from(this.elements).forEach(element => {
+      if (element.dataset.category !== data) {
+        console.log('eq')
+        element.classList.add('movies-grid__hidden')
+      } else {
+        console.log('!eq')
+      }
+    })
+  }
 }

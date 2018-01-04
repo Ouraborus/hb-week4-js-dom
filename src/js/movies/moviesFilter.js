@@ -1,9 +1,12 @@
 export class MoviesFilter {
-  constructor (section, data) {
+  constructor (section, data, grid) {
     this.node = document.querySelector(section)
     this.selectedCategory = 'All'
     this.elements = {}
+    this.grid = grid
+
     this.setFilter(this.filterCategories(data))
+    this.setButtons()
   }
 
   static get filterStructure () {
@@ -31,5 +34,15 @@ export class MoviesFilter {
     this.elements.categories = this.node.querySelectorAll('.movies-filter__element')
     this.elements.categories[0].classList.add('movies-filter__element--selected')
     this.elements.categories.tabIndex = 0
+  }
+
+  callbackGrid (evt) {
+    this.selectedCategory = evt.currentTarget.dataset.category
+    this.grid.updateGrid(this.selectedCategory)
+  }
+  setButtons () {
+    this.elements.categories.forEach(element => {
+      element.addEventListener('click', this.callbackGrid.bind(this))
+    })
   }
 }
