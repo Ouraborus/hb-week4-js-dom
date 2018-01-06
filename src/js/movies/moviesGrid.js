@@ -9,13 +9,11 @@ export class MoviesGrid {
 
   static get cardsShell () {
     return {
-      shell: (`<li>
-      <div class="movies-grid__container">
+      shell: (`<li class="movies-grid__container">
         <img class="movies-grid__element" src="{url}" data-category="{category}" alt=""/>
         <div class="movies-grid__description">
         <p>{description}</p>
         </div>
-      </div>
     </li>`)
     }
   }
@@ -30,14 +28,18 @@ export class MoviesGrid {
     this.elements.movies.tabIndex = 0
   }
   updateGrid (data) {
-    console.log(data)
-    Array.from(this.elements).forEach(element => {
-      if (element.dataset.category !== data) {
-        console.log('eq')
-        element.classList.add('movies-grid__hidden')
-      } else {
-        console.log('!eq')
-      }
-    })
+    if (data === 'All') {
+      this.elements.movies.forEach(element => {
+        element.classList.remove('movies-grid__hidden')
+      })
+    } else {
+      this.elements.movies.forEach(element => {
+        if (element.children[0].dataset.category !== data) {
+          element.classList.add('movies-grid__hidden')
+        } else {
+          element.classList.remove('movies-grid__hidden')
+        }
+      })
+    }
   }
 }
