@@ -36,13 +36,19 @@ export class MoviesFilter {
     this.elements.categories.tabIndex = 0
   }
 
-  callbackGrid (evt) {
+  updateAndCallbackGrid (evt) {
     this.selectedCategory = evt.currentTarget.dataset.category
     this.grid.updateGrid(this.selectedCategory)
+    this.updateFilter()
   }
   setButtons () {
     this.elements.categories.forEach(element => {
-      element.addEventListener('click', this.callbackGrid.bind(this))
+      element.addEventListener('click', this.updateAndCallbackGrid.bind(this))
     })
+  }
+  updateFilter () {
+    console.log(this.elements.categories)
+    // No funciona el QuerySelector sobre este elemento
+    console.log(this.elements.categories.querySelector(`[data-category="${this.selectedCategory}"]`))
   }
 }
