@@ -21,7 +21,7 @@
     "precommit": "npm run lint",
     "start:build": "npm-run-all build serve",
     "start": "npm-run-all copy:** build:css --parallel watch:** serve",
-    "start:windows": "npm-run-all cp:** build:css --parallel watch:** serve"
+    "start:w": "npm-run-all cp:** build:css --parallel watch:** serve"
   },
   "repository": {
     "type": "git",

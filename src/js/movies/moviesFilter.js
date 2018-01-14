@@ -1,11 +1,10 @@
 export class MoviesFilter {
   constructor (section, data, grid) {
     this.node = document.querySelector(section)
-    this.selectedCategory = 'All'
     this.elements = {}
     this.grid = grid
-
     this.setFilter(this.filterCategories(data))
+    this.selectedCategory = this.node.querySelector('.movies-filter__element--selected')
     this.setButtons()
   }
 
@@ -36,19 +35,18 @@ export class MoviesFilter {
     this.elements.categories.tabIndex = 0
   }
 
-  updateAndCallbackGrid (evt) {
-    this.selectedCategory = evt.currentTarget.dataset.category
-    this.grid.updateGrid(this.selectedCategory)
-    this.updateFilter()
+  updateViewport (evt) {
+    this.updateFilter(this.selectedCategory, evt.currentTarget)
+    this.selectedCategory = evt.currentTarget
+    this.grid.updateGrid(this.selectedCategory.dataset.category)
   }
   setButtons () {
     this.elements.categories.forEach(element => {
-      element.addEventListener('click', this.updateAndCallbackGrid.bind(this))
+      element.addEventListener('click', this.updateViewport.bind(this))
     })
   }
-  updateFilter () {
-    console.log(this.elements.categories)
-    // No funciona el QuerySelector sobre este elemento
-    console.log(this.elements.categories.querySelector(`[data-category="${this.selectedCategory}"]`))
+  updateFilter (oldButton, newButton) {
+    oldButton.classList.remove('movies-filter__element--selected')
+    newButton.classList.add('movies-filter__element--selected')
   }
 }
