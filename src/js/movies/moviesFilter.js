@@ -17,7 +17,7 @@ export class MoviesFilter {
 
   filterCategories (data) {
     const categories = []
-    data.map(element => {
+    data.forEach(element => {
       if (!categories.includes(element.category)) {
         categories.push(element.category)
       }
