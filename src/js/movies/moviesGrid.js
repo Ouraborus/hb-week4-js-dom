@@ -16,6 +16,7 @@ export class MoviesGrid {
         </picture>
       <picture class="movies-grid__back">
         <div class="movies-grid__description">
+        <p>{title}</p>
         <p>{year}</p>
         <p>{description}</p>
         </div>
@@ -27,7 +28,7 @@ export class MoviesGrid {
   setCardsShell (data) {
     let gridData = ''
     data.forEach(element => {
-      gridData += MoviesGrid.cardsShell.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description)
+      gridData += MoviesGrid.cardsShell.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description).replace('{title}', element.title)
     })
     this.node.innerHTML += gridData
     this.elements.movies = this.node.querySelectorAll('.movies-grid__container')
