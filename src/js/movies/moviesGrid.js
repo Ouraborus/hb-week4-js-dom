@@ -8,7 +8,7 @@ export class MoviesGrid {
     this.flippedCard = undefined
   }
 
-  static get cardsShell () {
+  static get cardsStr () {
     return {
       shell: (`<li class="movies-grid__container">
       <picture class="movies-grid__front">
@@ -21,14 +21,20 @@ export class MoviesGrid {
         <p>{description}</p>
         </div>
         </picture>
-    </li>`)
+    </li>`),
+      flipped: (
+      `movies-grid__container--flipped`
+    ),
+      hidden: (
+      `movies-grid__hidden`
+    )
     }
   }
 
   setCardsShell (data) {
     let gridData = ''
     data.forEach(element => {
-      gridData += MoviesGrid.cardsShell.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description).replace('{title}', element.title)
+      gridData += MoviesGrid.cardsStr.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description).replace('{title}', element.title)
     })
     this.node.innerHTML += gridData
     this.elements.movies = this.node.querySelectorAll('.movies-grid__container')
@@ -37,14 +43,14 @@ export class MoviesGrid {
   updateGrid (data) {
     if (data === 'All') {
       this.elements.movies.forEach(element => {
-        element.classList.remove('movies-grid__hidden')
+        element.classList.remove(MoviesGrid.cardsStr.hidden)
       })
     } else {
       this.elements.movies.forEach(element => {
         if (element.children[0].children[0].dataset.category !== data) {
-          element.classList.add('movies-grid__hidden')
+          element.classList.add(MoviesGrid.cardsStr.hidden)
         } else {
-          element.classList.remove('movies-grid__hidden')
+          element.classList.remove(MoviesGrid.cardsStr.hidden)
         }
       })
     }
@@ -55,15 +61,19 @@ export class MoviesGrid {
     })
   }
   flipCard (evt) {
-    if (this.flippedCard === undefined) {
-      this.flippedCard = evt.currentTarget
-    }
-    if (this.flippedCard !== evt.currentTarget) {
-      this.flippedCard.classList.remove('movies-grid__container--flipped')
-      this.flippedCard = evt.currentTarget
-      this.flippedCard.classList.add('movies-grid__container--flipped')
+    if (evt === 'reset' && this.flippedCard !== undefined) {
+      this.flippedCard.classList.remove(MoviesGrid.cardsStr.flipped)
     } else {
-      this.flippedCard.classList.toggle('movies-grid__container--flipped')
+      if (this.flippedCard === undefined) {
+        this.flippedCard = evt.currentTarget
+      }
+      if (this.flippedCard !== evt.currentTarget && this.flippedCard !== undefined) {
+        this.flippedCard.classList.remove(MoviesGrid.cardsStr.flipped)
+        this.flippedCard = evt.currentTarget
+        this.flippedCard.classList.add(MoviesGrid.cardsStr.flipped)
+      } else {
+        this.flippedCard.classList.toggle(MoviesGrid.cardsStr.flipped)
+      }
     }
   }
 }

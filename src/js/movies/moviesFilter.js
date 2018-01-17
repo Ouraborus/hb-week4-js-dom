@@ -4,15 +4,18 @@ export class MoviesFilter {
     this.elements = {}
     this.grid = grid
     this.setFilter(this.filterCategories(data))
-    this.selectedCategory = this.node.querySelector('.movies-filter__element--selected')
+    this.selectedCategory = this.node.querySelector(`.movies-filter__element--selected`)
     this.setButtons()
   }
 
-  static get filterStructure () {
+  static get filterStr () {
     return {
       shell: (
     `<li><button class="movies-filter__element" data-category="{category}">{category}</button></li>`
-    )}
+    ),
+      element: (
+    `movies-filter__element--selected`
+  )}
   }
 
   filterCategories (data) {
@@ -27,11 +30,11 @@ export class MoviesFilter {
   setFilter (data) {
     let filterData = ''
     data.forEach(element => {
-      filterData += MoviesFilter.filterStructure.shell.replace('{category}', element).replace('{category}', element)
+      filterData += MoviesFilter.filterStr.shell.replace('{category}', element).replace('{category}', element)
     })
     this.node.innerHTML += filterData
     this.elements.categories = this.node.querySelectorAll('.movies-filter__element')
-    this.elements.categories[0].classList.add('movies-filter__element--selected')
+    this.elements.categories[0].classList.add(MoviesFilter.filterStr.element)
     this.elements.categories.tabIndex = 0
   }
 
@@ -39,6 +42,7 @@ export class MoviesFilter {
     this.updateFilter(this.selectedCategory, evt.currentTarget)
     this.selectedCategory = evt.currentTarget
     this.grid.updateGrid(this.selectedCategory.dataset.category)
+    this.grid.flipCard('reset')
   }
   setButtons () {
     this.elements.categories.forEach(element => {
@@ -46,7 +50,7 @@ export class MoviesFilter {
     })
   }
   updateFilter (oldButton, newButton) {
-    oldButton.classList.remove('movies-filter__element--selected')
-    newButton.classList.add('movies-filter__element--selected')
+    oldButton.classList.remove(MoviesFilter.filterStr.element)
+    newButton.classList.add(MoviesFilter.filterStr.element)
   }
 }
