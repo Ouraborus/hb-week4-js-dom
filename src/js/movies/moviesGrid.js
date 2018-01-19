@@ -1,9 +1,10 @@
 export class MoviesGrid {
   constructor (section, data) {
+    console.log(Object.values(data))
     this.node = document.querySelector(section)
     this.elements = {}
-    this.dataLength = data.length
-    this.setCardsShell(data)
+    this.dataLength = Object.values(data).length
+    this.setCardsShell(Object.values(data))
     this.setCardsFlip()
     this.flippedCard = undefined
   }
@@ -33,7 +34,7 @@ export class MoviesGrid {
 
   setCardsShell (data) {
     let gridData = ''
-    data.forEach(element => {
+    Array.from(data).forEach(element => {
       gridData += MoviesGrid.cardsStr.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description).replace('{title}', element.title)
     })
     this.node.innerHTML += gridData
@@ -41,6 +42,7 @@ export class MoviesGrid {
     this.elements.movies.tabIndex = 0
   }
   updateGrid (data) {
+    // this.calcTopNLeft(this.countElements(data, this.elements.movies))
     if (data === 'All') {
       this.elements.movies.forEach(element => {
         element.classList.remove(MoviesGrid.cardsStr.hidden)
@@ -61,8 +63,10 @@ export class MoviesGrid {
     })
   }
   flipCard (evt) {
-    if (evt === 'reset' && this.flippedCard !== undefined) {
-      this.flippedCard.classList.remove(MoviesGrid.cardsStr.flipped)
+    if (evt === 'reset') {
+      if (this.flippedCard !== undefined) {
+        this.flippedCard.classList.remove(MoviesGrid.cardsStr.flipped)
+      }
     } else {
       if (this.flippedCard === undefined) {
         this.flippedCard = evt.currentTarget
@@ -75,5 +79,38 @@ export class MoviesGrid {
         this.flippedCard.classList.toggle(MoviesGrid.cardsStr.flipped)
       }
     }
+  }
+
+  countElements (data, movies) {
+    if (data === 'All') { return [...movies] } else {
+      let mov = []
+      movies.forEach(element => {
+        if (element.children[0].children[0].dataset.category === data) {
+          mov.push(element)
+        }
+      })
+      return mov
+    }
+  }
+  calcTopNLeft (movies) {
+    let matrix = []
+    let i = 0
+    let j = 0
+
+    var grid = document.querySelectorAll('.movies-grid__container')
+    grid.forEach(element => {
+      matrix.push([element.getBoundingClientRect().top, element.getBoundingClientRect().left])
+    })
+    grid.forEach(element => {
+      element.setAttribute('style', `top: ${matrix[i][0]}px;
+      left: ${matrix[i][1]}px;`)
+      i++
+    })
+    movies.forEach(element => {
+      element.setAttribute('style', `top: ${matrix[j][0]}px;
+      left: ${matrix[j][1]}px;`)
+      j++
+      console.log(matrix)
+    })
   }
 }
