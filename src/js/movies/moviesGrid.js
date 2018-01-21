@@ -1,10 +1,9 @@
 export class MoviesGrid {
   constructor (section, data) {
-    console.log(Object.values(data))
     this.node = document.querySelector(section)
     this.elements = {}
-    this.dataLength = Object.values(data).length
-    this.setCardsShell(Object.values(data))
+    this.dataLength = data.length
+    this.setCardsShell(data)
     this.setCardsFlip()
     this.flippedCard = undefined
   }
@@ -34,7 +33,7 @@ export class MoviesGrid {
 
   setCardsShell (data) {
     let gridData = ''
-    Array.from(data).forEach(element => {
+    data.forEach(element => {
       gridData += MoviesGrid.cardsStr.shell.replace('{url}', element.url).replace('{category}', element.category).replace('{year}', element.year).replace('{description}', element.description).replace('{title}', element.title)
     })
     this.node.innerHTML += gridData

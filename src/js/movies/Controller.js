@@ -1,4 +1,4 @@
-export default class ajaxController {
+export default class Controller {
   static get (url, callback) {
           /* eslint-disable */
     fetch(url)
